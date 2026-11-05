@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>بسمة أمل | إدارة دار الأيتام</title>
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        body { font-family: Tahoma, Arial, sans-serif; background:#f7f5fc; }
+        .sidebar { background:linear-gradient(180deg,#7656a8,#483078); }
+        .sidebar .nav-item .nav-link { text-align:right; }
+        .sidebar .sidebar-brand { font-size:20px; }
+        .topbar { background:white; }
+        .card { border-radius:12px; }
+        .main-title { color:#65428f; font-weight:bold; }
+        .stat-card { border-right:5px solid #8b68bd; }
+        .section-card { transition:.2s; }
+        .section-card:hover { transform:translateY(-3px); }
+    </style>
+</head>
+<body id="page-top">
+<div id="wrapper">
+
+    <ul class="navbar-nav sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <div>💜 بسمة أمل</div>
+        </a>
+        <hr class="sidebar-divider">
+        <li class="nav-item active">
+            <a class="nav-link" href="/">
+                <span>🏠 لوحة التحكم</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">إدارة الدار</div>
+        {% for item in [
+            ('👧','الأطفال','children'),
+            ('👩‍🏫','المشرفون','supervisors'),
+            ('📚','التعليم','education'),
+            ('❤️','السجلات الطبية','health'),
+            ('🎁','المتبرعون','donors'),
+            ('💝','التبرعات','donations'),
+            ('👥','الزوار','visitors'),
+            ('📅','الزيارات','visits')
+        ] %}
+        <li class="nav-item">
+            <a class="nav-link" href="/{{ item[2] }}">
+                <span>{{ item[0] }} {{ item[1] }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand topbar mb-4 shadow">
+                <span class="h5 mb-0 main-title">نظام إدارة دار الأيتام</span>
+                <span class="mr-auto">أهلاً بكِ في بسمة أمل 💜</span>
+            </nav>
+
+            <div class="container-fluid">
+                <h1 class="h3 mb-4 main-title">لوحة التحكم الرئيسية</h1>
+                <p>معًا نصنع مستقبلًا أفضل لأطفالنا 🌷</p>
+
+                {% for title, number, icon in [
+    ('الأطفال', counts.children, '👧'),
+    ('المشرفون', counts.supervisors, '👩‍🏫'),
+    ('التبرعات', counts.donations, '💝'),
+    ('الزيارات', counts.visits, '📅')
+] %}
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card shadow h-100 py-2 stat-card">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary mb-2">
+                                    {{ title }}
+                                </div>
+                                <div class="h4 mb-0 font-weight-bold">{{ number }}</div>
+                                <div class="mt-2">{{ icon }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    {% for title, desc, url, icon in [
+                        ('الأطفال','عرض وإدارة بيانات الأطفال','children','👧'),
+                        ('المشرفون','متابعة المشرفين','supervisors','👩‍🏫'),
+                        ('التعليم','متابعة المستوى الدراسي','education','📚'),
+                        ('السجلات الطبية','متابعة الحالة الصحية','health','❤️'),
+                        ('المتبرعون','إدارة بيانات المتبرعين','donors','🎁'),
+                        ('التبرعات','متابعة المبالغ والتواريخ','donations','💝'),
+                        ('الزوار','إدارة بيانات الزوار','visitors','👥'),
+                        ('الزيارات','تسجيل ومتابعة الزيارات','visits','📅')
+                    ] %}
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <a href="/{{ url }}" class="text-decoration-none">
+                            <div class="card shadow h-100 section-card">
+                                <div class="card-body text-center">
+                                    <div style="font-size:35px">{{ icon }}</div>
+                                    <h5 class="mt-3 main-title">{{ title }}</h5>
+                                    <p class="text-muted small">{{ desc }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center p-4 bg-white">
+            جميع الحقوق محفوظة © بسمة أمل 2026 💜
+        </footer>
+    </div>
+</div>
+</body>
+</html>

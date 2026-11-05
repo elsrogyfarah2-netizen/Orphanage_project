@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>السجلات الطبية - بسمة أمل</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f9;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            border-radius: 10px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>السجلات الطبية للأطفال</h1>
+
+    <form method="POST">
+
+        <input type="number" name="Child_ID"
+               placeholder="رقم الطفل" required>
+
+        <input type="date" name="Record_Date" required>
+
+        <input type="text" name="Diagnosis"
+               placeholder="التشخيص" required>
+
+        <input type="text" name="Treatment"
+               placeholder="العلاج" required>
+
+        <button type="submit">إضافة سجل طبي</button>
+
+    </form>
+
+    <h2>السجلات الطبية المسجلة</h2>
+
+    <table>
+        <tr>
+            <th>رقم السجل</th>
+            <th>رقم الطفل</th>
+            <th>تاريخ الكشف</th>
+            <th>التشخيص</th>
+            <th>العلاج</th>
+        </tr>
+
+        {% for record in medical_records %}
+        <tr>
+            <td>{{ record.Medical_ID }}</td>
+            <td>{{ record.Child_ID }}</td>
+            <td>{{ record.Record_Date }}</td>
+            <td>{{ record.Diagnosis }}</td>
+            <td>{{ record.Treatment }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
